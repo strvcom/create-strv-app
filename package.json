@@ -1,0 +1,23 @@
+{
+  "name": "create-strv-app",
+  "description": "Create new app in line with STRV's best practices.",
+  "version": "1.0.0",
+  "author": "Pavel Prichodko <prichodko.p@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby-starter-blog/issues"
+  },
+  "keywords": ["react", "strv"],
+  "engines": {
+    "node": ">=4"
+  },
+  "files": [],
+  "bin": {
+    "create-strv-app": "./bin/create-strv-app.js"
+  },
+  "homepage": "https://github.com/prichodko/create-strv-app.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prichodko/create-strv-app.git"
+  },
+  "license": "MIT"
+}

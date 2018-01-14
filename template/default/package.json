@@ -1,0 +1,38 @@
+{
+  "name": "default-strv-template",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "neutrino build",
+    "start": "neutrino start",
+    "test": "neutrino test",
+    "test:watch": "neutrino test --watch",
+    "test:coverage": "neutrino test --coverage",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "prettier --write", "git add"]
+  },
+  "dependencies": {
+    "neutrino": "^8.0.16",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0-beta.14",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "@neutrinojs/jest": "^8.0.16",
+    "@neutrinojs/react": "^8.0.16",
+    "@strv/eslint-config-javascript": "^7.9.0",
+    "babel-eslint": "^8.2.1",
+    "enzyme": "^3.3.0",
+    "eslint": "^4.15.0",
+    "eslint-plugin-prettier": "^2.4.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.10.2"
+  }
+}
