@@ -2,8 +2,11 @@
   "extends": [
     "@strv/javascript/environments/nodejs/v8",
     "@strv/javascript/environments/nodejs/optional",
-    "@strv/javascript/coding-styles/recommended",
     "prettier"
   ],
-  "rules": { "no-console": 0 }
+  "rules": {
+    "no-sync": 0,
+    "no-console": 0,
+    "no-process-exit": 0
+  }
 }

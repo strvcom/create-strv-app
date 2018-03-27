@@ -1,95 +1,167 @@
 #!/usr/bin/env node
+
 'use strict'
 
-const args = require('args')
-const path = require('path')
+const { resolve } = require('path')
+
 const fs = require('fs-extra')
+const mri = require('mri')
 const execa = require('execa')
 const ora = require('ora')
 const { prompt } = require('inquirer')
 const ms = require('ms')
 const chalk = require('chalk')
+const merge = require('lodash.merge')
 const updateNotifier = require('update-notifier')
-const pkgJson = require('../lib/pkg-json')
+const validateName = require('validate-npm-package-name')
+
 const log = require('../lib/log')
+const createPkg = require('../lib/create-pkg')
 const { hasYarn } = require('../lib/utils')
-const pkg = require('../package.json')
+const banner = require('../lib/banner')
+const help = require('../lib/help')
+// const list = require('../lib/list')
 
-updateNotifier({ pkg }).notify()
+const rootPkg = require('../package.json')
 
-args
-  .option('npm', 'Use npm to install dependencies', false)
-  .example(
-    'create-strv-app default my-awesome-app',
-    'Create app based on default template'
+updateNotifier({ pkg: rootPkg }).notify()
+
+if (process.versions.node.split('.')[0] < 8) {
+  log.warn(
+    'In order to execute code that contains the async or await keywords, you need to have at least version 8.0.0 of Node.js installed'
   )
-  .example('create-strv-app list', 'List all available templates')
+  process.exit(1)
+}
 
-const flags = args.parse(process.argv, {
-  name: 'create-strv-app',
-  value: '<template> <name>',
+const flags = mri(process.argv.slice(2), {
+  alias: {
+    h: 'help',
+    v: 'version',
+    npm: 'npm',
+    // l: 'list',
+  },
+  unknown(flag) {
+    log.warn(`The option "${flag}" is unknown. Use one of these:`)
+    console.log(help())
+    process.exit(1)
+  },
 })
+
+if (flags.help) {
+  console.log(help())
+  process.exit()
+}
+
+if (flags.version) {
+  console.log(`create-strv-app ${chalk.green(rootPkg.version)}`)
+  process.exit()
+}
+
+// if (flags.list) {
+//   console.log(list())
+//   process.exit()
+// }
+
+const filterNodeModules = name =>
+  !name.includes('node_modules') && !name.includes('yarn.lock')
+
+let spinner
 
 const main = async () => {
   const start = Date.now()
-  let template = args.sub[0] && args.sub[0].toLowerCase()
-  let projectName = args.sub[1]
 
-  const templatesPath = path.resolve(__dirname, '../templates')
-  const dir = await fs.readdir(templatesPath)
-  const templates = dir.filter(tmp => tmp !== 'dotfiles')
+  const rootPath = resolve(__dirname, '../templates')
+  const appTypes = await fs.readdir(rootPath)
 
-  if (!template) {
-    const res = await prompt({
-      type: 'list',
-      name: 'template',
-      message: 'Choose a template:',
-      choices: templates,
-    })
+  const { appType } = await prompt({
+    type: 'list',
+    name: 'appType',
+    message: 'Choose an application type:',
+    choices: appTypes.filter(
+      type => type !== 'dotfiles' && !type.startsWith('.')
+    ),
+  })
 
-    template = res.template
+  if (appType === 'Static') {
+    log.warn(
+      `\nStatic templates are currently not supported directly.\nTo create a static project, choose one from SSR and follow these instructions:\nhttps://github.com/zeit/next.js/#static-html-export`
+    )
+    process.exit(0)
   }
 
-  if (!templates.includes(template)) {
-    log.warn("Template doesn't exist.")
-    return
+  const templatesPath = resolve(rootPath, appType)
+  const templates = await fs.readdir(templatesPath)
+
+  const { template } = await prompt({
+    type: 'list',
+    name: 'template',
+    message: 'Choose a template:',
+    choices: templates.filter(t => !t.startsWith('.')),
+  })
+
+  const { projectName } = await prompt({
+    name: 'projectName',
+    message: 'Enter your project name:',
+    validate: input => (input === '' ? 'Cannot be empty.' : true),
+  })
+
+  const projectPath = resolve(projectName)
+
+  const { errors } = validateName(projectName)
+  if (errors) {
+    errors.unshift(`Invalid package name: ${projectName}`)
+    log.warn(
+      errors
+        .map(e => e.charAt(0).toUpperCase() + e.substring(1))
+        .join('\n    - ')
+    )
+    process.exit(1)
   }
-
-  if (!projectName) {
-    const res = await prompt({
-      name: 'projectName',
-      message: 'Enter you project name',
-    })
-
-    projectName = res.projectName
-  }
-
-  const templatePath = path.resolve(templatesPath, template)
-  const dotfilesPath = path.resolve(__dirname, '../templates/dotfiles')
-  const projectPath = path.resolve(process.cwd(), projectName)
 
   if (fs.existsSync(projectPath)) {
-    log.warn('Project directory already exists.')
-    return
+    log.warn('Project directory already exists. Aborting...')
+    process.exit(1)
   }
 
-  let spinner = ora('Creating project in').start()
+  const defaultPath = resolve(templatesPath, 'default')
+  const dotfilesPath = resolve(rootPath, 'dotfiles')
 
-  await fs.copy(templatePath, projectPath)
+  await fs.copy(defaultPath, projectPath, { filter: filterNodeModules })
   await fs.copy(dotfilesPath, projectPath)
-  await pkgJson({ projectPath, projectName })
 
-  spinner.succeed(`Project created at ${chalk.blue(projectPath)}`)
+  let pkg = await fs.readJson(resolve(defaultPath, 'package.json'))
+  pkg.name = projectName
+
+  if (template !== 'default') {
+    const templatePath = resolve(templatesPath, template)
+    await fs.copy(templatePath, projectPath, { filter: filterNodeModules })
+    const templatePkg = await fs.readJson(resolve(templatePath, 'package.json'))
+    pkg = merge(pkg, templatePkg)
+  }
+
+  await createPkg({ projectPath, pkg })
+
+  ora('Creating project in').succeed(
+    `Project created at ${chalk.blue(projectPath)} 📦`
+  )
 
   spinner = ora({
-    text: 'Installing dependencies, it can take a while.',
-    spinner: 'earth',
+    text: 'Installing dependencies to get you started.',
   }).start()
 
   const cmd = hasYarn() && !flags.npm ? 'yarn' : 'npm'
   await execa(cmd, ['install'], { cwd: projectPath })
 
-  spinner.succeed(`Done in ${ms(Date.now() - start)}`)
+  spinner.succeed(`Project created for you in ${ms(Date.now() - start)} 🎉`)
 }
 
-main().catch(err => log.warn(err))
+console.log(banner)
+
+main().catch(err => {
+  if (spinner) {
+    spinner.fail(err)
+  } else {
+    log.error(`Failed with following error: ${err}`)
+  }
+  process.exit(1)
+})
