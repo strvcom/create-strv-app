@@ -102,21 +102,21 @@ const main = async () => {
   const { projectName } = await prompt({
     name: 'projectName',
     message: 'Enter your project name:',
-    validate: input => (input === '' ? 'Cannot be empty.' : true),
+    validate: name => {
+      const { errors } = validateName(name)
+
+      if (errors) {
+        errors.unshift(`Invalid package name: ${chalk.red(name)}`)
+        return errors
+          .map(e => e.charAt(0).toUpperCase() + e.substring(1))
+          .join('\n> ')
+      }
+
+      return true
+    },
   })
 
   const projectPath = resolve(projectName)
-
-  const { errors } = validateName(projectName)
-  if (errors) {
-    errors.unshift(`Invalid package name: ${projectName}`)
-    log.warn(
-      errors
-        .map(e => e.charAt(0).toUpperCase() + e.substring(1))
-        .join('\n    - ')
-    )
-    process.exit(1)
-  }
 
   if (fs.existsSync(projectPath)) {
     log.warn('Project directory already exists. Aborting...')
