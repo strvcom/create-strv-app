@@ -145,9 +145,7 @@ const main = async () => {
     `Project created at ${chalk.blue(projectPath)} 📦`
   )
 
-  spinner = ora({
-    text: 'Installing dependencies to get you started.',
-  }).start()
+  spinner = ora('Installing dependencies to get you started...').start()
 
   const cmd = hasYarn() && !flags.npm ? 'yarn' : 'npm'
   await execa(cmd, ['install'], { cwd: projectPath })
