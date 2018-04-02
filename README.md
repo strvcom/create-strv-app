@@ -1,4 +1,8 @@
-# create-strv-app
+![](https://cdn.rawgit.com/prichodko/create-strv-app/2322955/logo.svg)
+
+> A better project setup
+
+![](https://raw.githubusercontent.com/prichodko/create-strv-app/master/screenshot.gif)
 
 ## Why
 
@@ -12,13 +16,13 @@ It will also be highly beneficial for people switching projects.
 
 To use always the most up to date version:
 
-npm
+`npm`
 
 ```bash
 npx create-strv-app
 ```
 
-yarn
+`yarn`
 
 ```bash
 yarn create strv-app
