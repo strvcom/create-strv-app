@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="570" viewBox="0 0 1700 570" style="background:#fff">
+  <g fill="none" fill-rule="evenodd" transform="translate(521 -46)">
+    <rect width="658.854" height="658.854" fill="#FFF" fill-rule="nonzero"/>
+    <text fill="#111517" font-family="MaisonNeue-Bold, Maison Neue" font-size="58.565" font-weight="bold">
+      <tspan x="114.084" y="525.518">create-strv-app</tspan>
+    </text>
+    <g transform="translate(183.015 128.11)">
+      <rect width="292.824" height="292.824" fill="#FFF" fill-rule="nonzero"/>
+      <path stroke="#111517" stroke-linecap="round" stroke-linejoin="round" stroke-width="7.321" d="M55.280863,168.373803 L46.015201,168.373803 C40.8169863,168.373803 36.6030007,163.826211 36.6030007,158.216471 L36.6030007,43.1000333 C36.6030007,37.4902933 40.8169863,32.9427006 46.015201,32.9427006 L246.808805,32.9427006 C252.007019,32.9427006 256.221005,37.4902933 256.221005,43.1000333 L256.221005,158.216471 C256.221005,163.826211 252.007019,168.373803 246.808805,168.373803 L238.000676,168.373803"/>
+      <rect width="76.866" height="7.321" x="91.508" y="65.885" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="76.866" height="7.321" x="91.508" y="139.091" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="76.866" height="7.321" x="124.45" y="117.13" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="51.244" height="7.321" x="91.508" y="208.637" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="21.962" height="7.321" x="157.393" y="208.637" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="21.962" height="7.321" x="91.508" y="252.561" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="40.263" height="7.321" x="91.508" y="91.508" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="40.263" height="7.321" x="146.412" y="164.714" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="32.943" height="7.321" x="168.374" y="230.599" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="18.302" height="7.321" x="91.508" y="186.675" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="40.263" height="7.321" x="91.508" y="164.714" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="40.263" height="7.321" x="128.111" y="252.561" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="62.225" height="7.321" x="91.508" y="230.599" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="25.622" height="7.321" x="124.45" y="186.675" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+      <rect width="18.302" height="7.321" x="146.412" y="91.508" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="18.302" height="7.321" x="91.508" y="117.13" fill="#EF0D33" fill-rule="nonzero" rx="3.66"/>
+      <rect width="18.302" height="7.321" x="183.015" y="252.561" fill="#111517" fill-rule="nonzero" rx="3.66"/>
+    </g>
+  </g>
+</svg>
