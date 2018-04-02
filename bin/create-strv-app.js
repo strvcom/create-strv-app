@@ -92,29 +92,39 @@ const main = async () => {
   const templatesPath = resolve(rootPath, appType)
   const templates = await fs.readdir(templatesPath)
 
-  const { template } = await prompt({
-    type: 'list',
-    name: 'template',
-    message: 'Choose a template:',
-    choices: templates.filter(t => !t.startsWith('.')),
-  })
-
-  const { projectName } = await prompt({
-    name: 'projectName',
-    message: 'Enter your project name:',
-    validate: name => {
-      const { errors } = validateName(name)
-
-      if (errors) {
-        errors.unshift(`Invalid package name: ${chalk.red(name)}`)
-        return errors
-          .map(e => e.charAt(0).toUpperCase() + e.substring(1))
-          .join('\n> ')
-      }
-
-      return true
+  const { template, projectName, sugar } = await prompt([
+    {
+      type: 'list',
+      name: 'template',
+      message: 'Choose a template:',
+      choices: templates.filter(t => !t.startsWith('.')),
     },
-  })
+    {
+      name: 'projectName',
+      message: 'Enter your project name:',
+      validate: name => {
+        const { errors } = validateName(name)
+
+        if (errors) {
+          errors.unshift(`Invalid package name: ${chalk.red(name)}`)
+          return errors
+            .map(e => e.charAt(0).toUpperCase() + e.substring(1))
+            .join('\n> ')
+        }
+
+        return true
+      },
+    },
+    {
+      name: 'sugar',
+      type: 'checkbox',
+      message: 'Some sugar on top:',
+      choices: [
+        'Flow',
+        { name: 'Firebase Hosting', disabled: appType === 'SSR' },
+      ],
+    },
+  ])
 
   const projectPath = resolve(projectName)
 
