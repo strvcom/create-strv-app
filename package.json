@@ -53,6 +53,7 @@
     "mri": "^1.1.0",
     "ms": "^2.1.1",
     "ora": "^2.0.0",
+    "sort-keys": "^2.0.0",
     "update-notifier": "^2.4.0",
     "validate-npm-package-name": "^3.0.0"
   },
@@ -61,7 +62,7 @@
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "husky": "^0.14.3",
-    "lint-staged": "^7.0.0",
+    "lint-staged": "^7.0.4",
     "prettier": "^1.11.1"
   }
 }

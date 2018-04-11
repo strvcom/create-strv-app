@@ -15,9 +15,9 @@ const merge = require('lodash.merge')
 const updateNotifier = require('update-notifier')
 const validateName = require('validate-npm-package-name')
 
-const log = require('../lib/log')
-const createPkg = require('../lib/create-pkg')
-const { hasYarn } = require('../lib/utils')
+const configs = require('../lib/configs')
+const log = require('../lib/utils/log')
+const hasYarn = require('../lib/utils/has-yarn')
 const banner = require('../lib/banner')
 const help = require('../lib/help')
 // const list = require('../lib/list')
@@ -78,21 +78,14 @@ const main = async () => {
     name: 'appType',
     message: 'Choose an application type:',
     choices: appTypes.filter(
-      type => type !== 'dotfiles' && !type.startsWith('.')
+      type => !type.startsWith('.') && type !== 'Static'
     ),
   })
-
-  if (appType === 'Static') {
-    log.warn(
-      `\nStatic templates are currently not supported directly.\nTo create a static project, choose one from SSR and follow these instructions:\nhttps://github.com/zeit/next.js/#static-html-export`
-    )
-    process.exit(0)
-  }
 
   const templatesPath = resolve(rootPath, appType)
   const templates = await fs.readdir(templatesPath)
 
-  const { template, projectName, sugar } = await prompt([
+  const { template, projectName } = await prompt([
     {
       type: 'list',
       name: 'template',
@@ -115,15 +108,6 @@ const main = async () => {
         return true
       },
     },
-    {
-      name: 'sugar',
-      type: 'checkbox',
-      message: 'Some sugar on top:',
-      choices: [
-        'Flow',
-        { name: 'Firebase Hosting', disabled: appType === 'SSR' },
-      ],
-    },
   ])
 
   const projectPath = resolve(projectName)
@@ -133,14 +117,21 @@ const main = async () => {
     process.exit(1)
   }
 
+  const { sugar } = await prompt({
+    name: 'sugar',
+    type: 'checkbox',
+    message: 'Sugar on top:',
+    choices: [
+      { name: 'styled-components', value: 'sc' },
+      { name: 'Flow', value: 'flow' },
+      ...(appType === 'SPA' ? [{ name: 'Firebase Hosting', value: 'firebase' }] : []), // prettier-ignore
+      ...(appType === 'SSR' ? [{ name: 'Heroku', value: 'heroku' }] : []),
+    ],
+  })
+
   const defaultPath = resolve(templatesPath, 'default')
-  const dotfilesPath = resolve(rootPath, 'dotfiles')
-
   await fs.copy(defaultPath, projectPath, { filter: filterNodeModules })
-  await fs.copy(dotfilesPath, projectPath)
-
   let pkg = await fs.readJson(resolve(defaultPath, 'package.json'))
-  pkg.name = projectName
 
   if (template !== 'default') {
     const templatePath = resolve(templatesPath, template)
@@ -149,7 +140,12 @@ const main = async () => {
     pkg = merge(pkg, templatePkg)
   }
 
-  await createPkg({ projectPath, pkg })
+  await configs.default(projectPath, appType, merge(pkg, { name: projectName }))
+
+  sugar.includes('sc') && (await configs.styledComponents(projectPath, appType))
+  sugar.includes('firebase') && (await configs.firebase(projectPath, appType))
+  sugar.includes('flow') && (await configs.flow(projectPath, appType))
+  sugar.includes('heroku') && (await configs.heroku(projectPath, appType))
 
   ora('Creating project in').succeed(
     `Project created at ${chalk.blue(projectPath)} 📦`
@@ -159,6 +155,8 @@ const main = async () => {
 
   const cmd = hasYarn() && !flags.npm ? 'yarn' : 'npm'
   await execa(cmd, ['install'], { cwd: projectPath })
+
+  // TODO: Initilize flow
 
   spinner.succeed(`Project created for you in ${ms(Date.now() - start)} 🎉`)
 }
