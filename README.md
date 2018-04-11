@@ -51,12 +51,19 @@ All projects include same code quality tools, which **should not** be changed:
 * [Prettier](https://prettier.io/)
 * Pre-commit [hook](https://github.com/okonet/lint-staged)
 
-And with optional setup in the future:
+And with optional setup:
 
+* styled-components
 * Flow
 * Firebase deploy
+* Heroku
 
 If you don't agree with any setup, don't change it and rather open an issue.
+
+TBD:
+
+* CI
+* Advanced templates
 
 ## Ideas
 
