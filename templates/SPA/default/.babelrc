@@ -1,0 +1,3 @@
+{
+  "presets": ["@strv/react-scripts/babel"]
+}
