@@ -167,7 +167,8 @@ main().catch(err => {
   if (spinner) {
     spinner.fail(err)
   } else {
-    log.error(`Failed with following error: ${err}`)
+    log.error(`Failed with following error:`)
   }
+  console.log(err)
   process.exit(1)
 })
