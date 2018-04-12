@@ -1,7 +1,7 @@
 {
   "name": "create-strv-app",
   "description": "Create new app in line with STRV's best practices in seconds",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Pavel Prichodko <prichodko.p@gmail.com>",
   "bugs": {
     "url": "https://github.com/prichodko/create-strv-app/issues"
