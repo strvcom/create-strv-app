@@ -62,8 +62,7 @@ if (flags.version) {
 //   process.exit()
 // }
 
-const filterNodeModules = name =>
-  !name.includes('node_modules') && !name.includes('yarn.lock')
+const filterInternalFiles = name => !name.includes('yarn.lock')
 
 let spinner
 
@@ -130,12 +129,12 @@ const main = async () => {
   })
 
   const defaultPath = resolve(templatesPath, 'default')
-  await fs.copy(defaultPath, projectPath, { filter: filterNodeModules })
+  await fs.copy(defaultPath, projectPath, { filter: filterInternalFiles })
   let pkg = await fs.readJson(resolve(defaultPath, 'package.json'))
 
   if (template !== 'default') {
     const templatePath = resolve(templatesPath, template)
-    await fs.copy(templatePath, projectPath, { filter: filterNodeModules })
+    await fs.copy(templatePath, projectPath, { filter: filterInternalFiles })
     const templatePkg = await fs.readJson(resolve(templatePath, 'package.json'))
     pkg = merge(pkg, templatePkg)
   }
