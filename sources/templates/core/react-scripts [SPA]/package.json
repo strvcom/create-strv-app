@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "npm run start",
+    "build": "react-scripts build",
+    "start": "react-scripts start"
+  },
+  "dependencies": {
+    "@strv/react-scripts": "^0.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}

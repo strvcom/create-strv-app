@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "heroku-postbuild": "npm run build",
+    "start": "next start -p $PORT"
+  }
+}

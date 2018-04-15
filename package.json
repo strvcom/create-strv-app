@@ -34,7 +34,6 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
       "prettier --write",
       "git add"
     ],
@@ -45,12 +44,13 @@
   },
   "dependencies": {
     "chalk": "^2.3.2",
+    "commander": "^2.15.1",
     "execa": "^0.10.0",
     "fs-extra": "^5.0.0",
     "inquirer": "^5.2.0",
+    "klaw": "^2.1.1",
     "lodash.merge": "^4.6.1",
     "log-symbols": "^2.2.0",
-    "mri": "^1.1.0",
     "ms": "^2.1.1",
     "ora": "^2.0.0",
     "sort-keys": "^2.0.0",

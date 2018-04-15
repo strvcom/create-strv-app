@@ -1,0 +1,5 @@
+import getThemeInitialProps from 'packages/configureTheme/ssr'
+
+// todo implement styled-components
+// const { page, styleTags } = getThemeInitialProps(ctx)
+// return { ...page, styleTags }
