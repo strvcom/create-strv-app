@@ -38,6 +38,8 @@ Project helps you to create these types of apps:
   * based on [strv-react-scripts](https://github.com/prichodko/strv-react-scripts)
 * server-side rendered applications
   * based on [Next.js](https://github.com/zeit/next)
+* react native applications
+  * based on [Expo](https://expo.io)
 
 To be done:
 
