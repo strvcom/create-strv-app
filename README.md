@@ -67,7 +67,7 @@ TBD:
 
 ## Ideas
 
-The project is aimed to be easily extendible. So if you have any idea how to improve it, don't hesistate to open an issue to improve the developer experience for the whole team.
+The project is aimed to be easily extendible. So if you have any idea how to improve it, don't hesitate to open an issue to improve the developer experience for the whole team.
 
 ## Contribute
 
