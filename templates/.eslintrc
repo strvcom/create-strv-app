@@ -1,8 +1,0 @@
-{
-  "extends": [
-    "@strv/javascript/environments/react/v16",
-    "@strv/javascript/coding-styles/recommended",
-    "prettier",
-    "prettier/react"
-  ]
-}
