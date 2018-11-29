@@ -1,6 +1,5 @@
 import React from 'react'
 import NextHead from 'next/head'
-import PropTypes from 'prop-types'
 
 const Head = ({
   title = 'STRV - Next.js template',
@@ -28,12 +27,5 @@ const Head = ({
     <meta property="og:image:height" content="630" />
   </NextHead>
 )
-
-Head.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  ogUrl: PropTypes.string.isRequired,
-  ogImage: PropTypes.string.isRequired,
-}
 
 export default Head
