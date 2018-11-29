@@ -1,0 +1,22 @@
+{
+  "homepage": "/",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "analyze": "react-scripts analyze",
+    "test": "react-scripts test --env=jsdom"
+  },
+  "dependencies": {
+    "@strv/react-scripts": "^2.0.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
+    "sanitize.css": "^8.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
