@@ -1,12 +1,18 @@
 {
+  "root": true,
   "extends": [
     "@strv/javascript/environments/nodejs/v8",
     "@strv/javascript/environments/nodejs/optional",
     "prettier"
   ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
   "rules": {
     "no-sync": 0,
     "no-console": 0,
-    "no-process-exit": 0
+    "no-process-exit": 0,
+    "react/prop-types": 0,
+    "no-process-env": 0
   }
 }
