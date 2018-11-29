@@ -11,7 +11,7 @@ const chalk = require('chalk')
 const ora = require('ora')
 
 const Generator = require('./Generator')
-const banner = require('./banner')
+const banner = require('./utils/banner')
 
 const dotfiles = require('./plugins/dotfiles')
 const eslint = require('./plugins/eslint')
