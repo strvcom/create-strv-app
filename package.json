@@ -1,6 +1,6 @@
 {
   "name": "create-strv-app",
-  "description": "Create new app in line with STRV's best practices in seconds",
+  "description": "Set up new app in line with STRV's best practices in one command",
   "version": "1.2.3",
   "author": "Pavel Prichodko <prichodko.p@gmail.com>",
   "bugs": {
@@ -12,7 +12,7 @@
     "strv"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=8.3.0"
   },
   "files": [
     "bin",
@@ -23,9 +23,9 @@
   "repository": "prichodko/create-strv-app",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint bin src lib",
-    "format": "prettier --write 'bin/*' 'lib/*' 'templates/**/*.{js,json,md}' ",
-    "precommit": "lint-staged"
+    "lint": "eslint bin src",
+    "lint:templates": "eslint templates",
+    "format": "prettier --write '*/**/*.{css,md,json,js}'"
   },
   "prettier": {
     "semi": false,
@@ -43,26 +43,63 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
-    "chalk": "^2.3.2",
-    "execa": "^0.10.0",
-    "fs-extra": "^5.0.0",
-    "inquirer": "^5.2.0",
+    "@babel/parser": "^7.1.6",
+    "chalk": "^2.4.1",
+    "execa": "^1.0.0",
+    "fs-extra": "^7.0.1",
+    "globby": "^8.0.1",
+    "inquirer": "^6.2.0",
+    "isbinaryfile": "^3.0.3",
+    "lodash.isarray": "^4.0.0",
     "lodash.merge": "^4.6.1",
+    "lodash.mergewith": "^4.6.1",
     "log-symbols": "^2.2.0",
-    "mri": "^1.1.0",
+    "meow": "^5.0.0",
+    "mri": "^1.1.1",
     "ms": "^2.1.1",
-    "ora": "^2.0.0",
+    "ora": "^3.0.0",
+    "please-upgrade-node": "^3.1.1",
+    "recast": "^0.16.1",
+    "sade": "^1.4.1",
     "sort-keys": "^2.0.0",
-    "update-notifier": "^2.4.0",
+    "update-notifier": "^2.5.0",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
-    "@strv/eslint-config-javascript": "^7.10.0",
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "husky": "^0.14.3",
-    "lint-staged": "^7.0.4",
-    "prettier": "^1.11.1"
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
+    "@strv/eslint-config-javascript": "^9.1.0",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.10",
+    "@types/react": "^16.7.8",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-redux": "^6.0.10",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.1.2",
+    "@types/webpack-env": "^1.13.6",
+    "@zeit/next-typescript": "^1.1.1",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-styled-components": "^1.9.2",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-cypress": "^2.1.2",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.2",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "styled-components": "^4.1.2",
+    "stylelint": "^9.9.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.5.1",
+    "typescript": "^3.2.1"
   }
 }
