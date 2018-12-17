@@ -3,6 +3,7 @@
 const path = require('path')
 
 const globby = require('globby')
+const chalk = require('chalk')
 
 const merge = require('./utils/merge')
 const { devDependencies } = require('../package.json')
@@ -43,8 +44,11 @@ class PluginAPI {
     if (dep) {
       this.updatePackageJson({ dependencies: { [name]: dep } })
     } else {
+      console.log()
       console.log(
-        `Please add ${dep} to create-strv-app package.json devDependencies.`
+        chalk.red(
+          `Please add ${dep} to create-strv-app package.json dependencies.`
+        )
       )
     }
   }
@@ -54,8 +58,11 @@ class PluginAPI {
     if (dep) {
       this.updatePackageJson({ devDependencies: { [name]: dep } })
     } else {
+      console.log()
       console.log(
-        `Please add ${dep} to create-strv-app package.json devDependencies.`
+        chalk.red(
+          `Please add ${dep} to create-strv-app package.json devDependencies.`
+        )
       )
     }
   }
