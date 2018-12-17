@@ -16,7 +16,7 @@
   },
   "files": [
     "bin",
-    "lib",
+    "src",
     "templates"
   ],
   "bin": "./bin/create-strv-app.js",
