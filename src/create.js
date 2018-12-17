@@ -149,6 +149,9 @@ async function create() {
   await execa('git', ['commit', '-m', 'Initial commit'], {
     cwd: targetDir,
   })
+  await execa('node', ['node_modules/husky/husky.js', 'install'], {
+    cwd: targetDir,
+  })
   spinner.succeed(`${chalk.blue('git')} initialized`)
 
   spinner.succeed(`Project created in ${chalk.blue(ms(Date.now() - start))} 🎉`)
