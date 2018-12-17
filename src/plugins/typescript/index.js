@@ -33,6 +33,10 @@ module.exports = api => {
     },
   })
 
+  if (api.hasPlugin('styled-components')) {
+    api.addDevDependency('@types/styled-components')
+  }
+
   if (api.hasPlugin('redux')) {
     api.addDevDependency('@types/react-redux')
   }

@@ -10,6 +10,11 @@ module.exports = api => {
       : [['babel-plugin-styled-components', { ssr: true }]],
   })
 
+  api.copy(files => {
+    const dest = api.is('SPA') ? 'src/styles/global.js' : 'styles/global.js'
+    files[dest] = require.resolve('./templates/global.js')
+  })
+
   if (!api.is('SPA')) {
     api.copy(files => {
       files['pages/_document.js'] = require.resolve('./templates/_document.js')

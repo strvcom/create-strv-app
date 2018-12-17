@@ -19,9 +19,6 @@ module.exports = api => {
     })
   } else {
     api.updatePackageJson({
-      scripts: {
-        'lint:css': "stylelint './src/**/*.css'",
-      },
       stylelint: {
         extends: 'stylelint-config-standard',
         rules: {},

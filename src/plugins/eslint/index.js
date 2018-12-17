@@ -1,8 +1,10 @@
 'use strict'
 
 module.exports = api => {
-  api.addDevDependency('eslint')
-  api.addDevDependency('babel-eslint')
+  if (!api.is('SPA')) {
+    api.addDevDependency('eslint')
+    api.addDevDependency('babel-eslint')
+  }
   api.addDevDependency('@strv/eslint-config-javascript')
   api.addDevDependency('eslint-config-prettier')
 
