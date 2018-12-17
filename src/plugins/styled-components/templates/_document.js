@@ -13,11 +13,8 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html>
-        <Head>
-          <title>Next.js STRV template</title>
-          {this.props.styleTags}
-        </Head>
+      <html lang="en">
+        <Head>{this.props.styleTags}</Head>
         <body>
           <Main />
           <NextScript />

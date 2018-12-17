@@ -17,12 +17,13 @@ module.exports = api => {
       ],
       ...(hasTS && {
         '*.{ts,tsx}': [
-          'prettier --write',
           ...(hasSC ? ['stylelint'] : []),
+          'prettier --write',
           'git add',
         ],
       }),
-      '*.{json,css,md}': ['prettier --write', 'git add'],
+      '*.{json,md}': ['prettier --write', 'git add'],
+      '*.css': ['stylelint', 'prettier --write', 'git add'],
     },
     husky: {
       hooks: {

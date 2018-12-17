@@ -16,7 +16,7 @@ const render = () => {
 }
 
 if (module.hot) {
-  module.hot.accept('./App', render)
+  module.hot.accept('./views', render)
 }
 
 render()
