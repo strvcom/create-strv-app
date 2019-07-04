@@ -27,27 +27,6 @@
     "lint:templates": "eslint templates",
     "format": "prettier --write '*/**/*.{css,md,json,js}'"
   },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@babel/parser": "^7.2.2",
     "chalk": "^2.4.1",
